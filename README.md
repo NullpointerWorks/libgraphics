@@ -1,44 +1,25 @@
-# libnpw
-Java game utility and graphics library, and other useful code.
+# libgraphics
+A graphics library with a simple rendering API and various UI and font tools. 
 
-# dependency
+# module
+* requires transitive java.desktop
+* requires transitive libnpw.core
+* requires transitive libnpw.math
+* requires transitive libnpw.util
+* exports com.nullpointerworks.graphics
+* exports com.nullpointerworks.graphics.colormodel
+* exports com.nullpointerworks.graphics.font
+* exports com.nullpointerworks.graphics.gui
+* exports com.nullpointerworks.graphics.gui.awt
+* exports com.nullpointerworks.graphics.gui.elements
+* exports com.nullpointerworks.graphics.gui.input
+* exports com.nullpointerworks.graphics.gui.interfaces
+* exports com.nullpointerworks.graphics.image
+* exports com.nullpointerworks.graphics.image.io
+* exports com.nullpointerworks.graphics.render
+* exports com.nullpointerworks.graphics.render.shader
 
-## Releases
-
-### CORE v1.0
-* independent
-
-### MATH v1.0
-* independent
-
-### UTIL v1.0
-* independent
-
-### GAME v1.0
-* independent
-
-### GRAPHICS v1.0
+# graphics v1.0
 * core 1.0.x
 * math 1.0.x
 * util 1.0.x
-
-### J2D v1.0
-* core 1.0.x
-* math 1.0.x
-* util 1.0.x
-
-## Experimental
-
-### J3D v0.1
-* core 1.0.x
-* math 1.0.x
-* util 1.0.x
-
-### MEDIA v0.0
-* util 1.0.x
-
-### NET v0.1
-* util 1.0.x
-
-### ASTRO v0.0
-* math 1.0.x
