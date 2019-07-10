@@ -1,7 +1,10 @@
 package com.nullpointerworks.graphics.image.io;
 
 import java.awt.image.BufferedImage;
+import java.io.DataInputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -12,9 +15,9 @@ import com.nullpointerworks.util.Log;
 
 public class ImageLoader
 {
-	/*
+	/**
 	 * read a file into a texture
-	 * returns an ImageTexture
+	 * returns an IntBuffer
 	 */
 	public IntBuffer file(String path)
 	{
@@ -36,19 +39,12 @@ public class ImageLoader
 		return convert(image);
 	}
 	
-	/*
+	/**
 	 * 
 	 */
-	public IntBuffer resource(String directory)
+	public IntBuffer stream(InputStream stream)
 	{
-		// check first char for a '/'
-		char c = directory.charAt(0);
-		if (c != '/')
-			directory = "/"+directory;
-		
-		// begin loading image
 		BufferedImage image = null;
-		InputStream stream = this.getClass().getResourceAsStream(directory);
 		if (stream!=null)
 		try 
 		{
@@ -56,7 +52,7 @@ public class ImageLoader
 		} 
 		catch (IOException e) 
 		{
-			Log.err("Could not load resource '"+directory+"'. - ImageLoader.resource()");
+			Log.err("Could not load from inputstream - ImageLoader.stream()");
 			close(stream);
 			return new IntBuffer(0,0);
 		}
@@ -67,10 +63,37 @@ public class ImageLoader
 		
 		if (image==null)
 		{
-			Log.err("InputStream error from reading '"+directory+"'. - ImageLoader.resource()");
+			Log.err("InputStream error from reading inputstream - ImageLoader.stream()");
 			return new IntBuffer(0,0);
 		}
 		return convert(image);
+	}
+	
+	/**
+	 * 
+	 */
+	public IntBuffer resource(String directory)
+	{
+		InputStream stream = getFileAsStream(directory);
+		return stream(stream);
+	}
+	
+	/*
+	 * resource loader
+	 */
+	private InputStream getFileAsStream(String path)
+	{
+		InputStream is = null;
+		try 
+		{
+			File f = new File(path);
+			is = new DataInputStream(new FileInputStream(f));
+		} 
+		catch (FileNotFoundException e) 
+		{
+			e.printStackTrace();
+		}
+		return is;
 	}
 	
 	/*
