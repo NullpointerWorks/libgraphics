@@ -4,7 +4,6 @@ import java.awt.image.BufferedImage;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -21,22 +20,19 @@ public class ImageLoader
 	 */
 	public IntBuffer file(String path)
 	{
-		BufferedImage image = null;
-		
-		// try to load image
+		InputStream is = null;
 		try 
 		{
-			image = ImageIO.read(new File(path));
+			File f = new File(path);
+			is = new DataInputStream(new FileInputStream(f));
+			is.close();
 		}
 		catch (IOException e) 
 		{
-			Log.err("Could not load image '"+path+"'. - ImageLoader.file()");
+			Log.err("Could not load from path - ImageLoader.file()");
 			return new IntBuffer(0,0);
 		}
-		finally 
-		{}
-		
-		return convert(image);
+		return stream(is);
 	}
 	
 	/**
@@ -67,33 +63,6 @@ public class ImageLoader
 			return new IntBuffer(0,0);
 		}
 		return convert(image);
-	}
-	
-	/**
-	 * 
-	 */
-	public IntBuffer resource(String directory)
-	{
-		InputStream stream = getFileAsStream(directory);
-		return stream(stream);
-	}
-	
-	/*
-	 * resource loader
-	 */
-	private InputStream getFileAsStream(String path)
-	{
-		InputStream is = null;
-		try 
-		{
-			File f = new File(path);
-			is = new DataInputStream(new FileInputStream(f));
-		} 
-		catch (FileNotFoundException e) 
-		{
-			e.printStackTrace();
-		}
-		return is;
 	}
 	
 	/*

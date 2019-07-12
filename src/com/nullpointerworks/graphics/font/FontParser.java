@@ -1,6 +1,7 @@
 package com.nullpointerworks.graphics.font;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 import com.nullpointerworks.math.IntMath;
 import com.nullpointerworks.util.Log;
@@ -60,20 +61,20 @@ public class FontParser
 	}
 	
 	/**
-	 * 
+	 * @throws IOException 
 	 */
-	public static Font file(String path)
+	public static Font file(String path) throws IOException
 	{
 		if (path == null)
 		{
-			Log.err("NullPointer: The given path string is null");
+			Log.err("FontParser: The given path string is null");
 			return null;
 		}
 		
 		ByteFile bf = ByteFileParser.file(path);
 		if (bf.isNull() || bf == null)
 		{
-			Log.err("NullPointer: The loaded file returned as null");
+			Log.err("FontParser: The loaded file returned as null");
 			return null;
 		}
 		return new Font(bf);
@@ -82,22 +83,18 @@ public class FontParser
 	/**
 	 * 
 	 */
-	public static Font resource(String path)
+	public static Font stream(InputStream stream)
 	{
-		if (path == null)
+		if (stream == null)
 		{
-			Log.err("NullPointer: The given path string is null");
+			Log.err("FontParser: The given stream string is null");
 			return null;
 		}
-
-		// check first char for a '/'
-		char c = path.charAt(0);
-		if (c == '/') path = path.substring(1, path.length());
 		
-		ByteFile bf = ByteFileParser.resource(path);
+		ByteFile bf = ByteFileParser.stream(stream);
 		if (bf.isNull() || bf == null)
 		{
-			Log.err("NullPointer: The loaded resource returned as null");
+			Log.err("FontParser: The loaded resource returned as null");
 			return null;
 		}
 		
