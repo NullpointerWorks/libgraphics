@@ -25,14 +25,24 @@ public class ImageLoader
 		{
 			File f = new File(path);
 			is = new DataInputStream(new FileInputStream(f));
-			is.close();
 		}
 		catch (IOException e) 
 		{
 			Log.err("Could not load from path - ImageLoader.file()");
 			return new IntBuffer(0,0);
 		}
-		return stream(is);
+		
+		IntBuffer res = stream(is);
+		
+		try 
+		{
+			is.close();
+		} 
+		catch (IOException e) 
+		{
+			e.printStackTrace();
+		}
+		return  res;
 	}
 	
 	/**
