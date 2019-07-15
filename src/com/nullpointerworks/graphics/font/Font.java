@@ -31,21 +31,7 @@ public class Font extends IntBuffer
 		mask = new FloatBuffer(0,0, 0f);
 	}
 	
-	/*
-	 * char map - 256 ascii style
-	 * 
-	 * _|0 - f
-	 * 0 x x x
-	 * | x x x
-	 * F x x x
-	 * 
-	 * 
-	 * short > img width
-	 * short > img height
-	 * short > char width
-	 * short > char height
-	 * byte... > img data. (byte per pixel)
-	 * EOF
+	/**
 	 * 
 	 */
 	Font(ByteFile bf)
@@ -81,7 +67,8 @@ public class Font extends IntBuffer
 		/*
 		 * we know the size of the image, get all its data and make the grey-scale mask
 		 */
-		this.resize(imageWidth, imageHeight);
+		this.createBuffer(imageWidth, imageHeight);
+		if (mask!=null)mask.free();
 		mask = new FloatBuffer(imageWidth, imageHeight, 0f);
 		for (int j=0; j<length;j++)
 		{
@@ -159,8 +146,9 @@ public class Font extends IntBuffer
 		charWidth 	= (imageWidth/16);
 		charHeight 	= (imageHeight/16);
 		
-		this.resize(imageWidth, imageHeight);
-		mask.resize(imageWidth, imageHeight);
+		this.createBuffer(imageWidth, imageHeight);
+		if (mask!=null)mask.free();
+		mask = new FloatBuffer(imageWidth, imageHeight, 0f);
 		
 		for (int j=0; j<length;j++)
 		{
