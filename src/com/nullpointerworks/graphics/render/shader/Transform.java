@@ -2,7 +2,7 @@ package com.nullpointerworks.graphics.render.shader;
 
 import com.nullpointerworks.core.buffer.IntBuffer;
 import com.nullpointerworks.graphics.render.PlotRequest;
-import com.nullpointerworks.math.FastMath;
+import com.nullpointerworks.math.Approximate;
 import com.nullpointerworks.math.matrix.Matrix3;
 
 /*
@@ -49,8 +49,8 @@ public class Transform
 		float cos = 1f;
 		if (rotate != null)
 		{
-			sin = (float)FastMath.sin(rotate);
-		    cos = (float)FastMath.cos(rotate);
+			sin = (float)Approximate.sin(rotate);
+		    cos = (float)Approximate.cos(rotate);
 		    float absin = (sin<0f)?-sin:sin;
 		    float abcos = (cos<0f)?-cos:cos;
 		    rotate_w 	= (abcos*scale_w + scale_h*absin);
