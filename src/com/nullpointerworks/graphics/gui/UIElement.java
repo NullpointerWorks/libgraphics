@@ -35,7 +35,7 @@ implements UIGeometryListener, UIApplicationListener, UIRefreshListener
 			oy += pgeom.y;
 		}
 		Geometry2D geom = super.getGeometry().copy();
-		geom.offset(ox, oy);
+		geom.translate(ox, oy);
 		return geom;
 	}
 	

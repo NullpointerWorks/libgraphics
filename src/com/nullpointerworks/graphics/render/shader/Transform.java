@@ -10,6 +10,8 @@ import com.nullpointerworks.math.matrix.Matrix3;
  */
 public class Transform
 {
+	private Matrix3 M3 = new Matrix3();
+	
 	public void run(PlotRequest req)
 	{
 		/*
@@ -84,7 +86,7 @@ public class Transform
 	    /*
 	     * compile transformation data
 	     */
-		req.mTransform = Matrix3.mul(m_scale, m_rotate, m_trans);
+		req.mTransform = M3.mul(m_scale, m_rotate, m_trans);
 		req.aabb.x = req.x - 0.5f*rotate_w;
 		req.aabb.y = req.y - 0.5f*rotate_h;
 		req.aabb.w = rotate_w;

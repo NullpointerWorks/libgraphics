@@ -44,7 +44,7 @@ public abstract class TabbedInterface extends UserInterface implements UICallbac
 		// adjust and add ui
 		Rectangle tbb = this.getGeometry().getBoundingBox();		
 		Rectangle ubb = ui.getGeometry().getBoundingBox();
-		ui.getGeometry().offset( tbb.x + ubb.x, tbb.y + TAB_HEIGHT + ubb.y );
+		ui.getGeometry().translate( tbb.x + ubb.x, tbb.y + TAB_HEIGHT + ubb.y );
 		uis.add( ui );
 		
 		onRefresh();
@@ -117,7 +117,7 @@ public abstract class TabbedInterface extends UserInterface implements UICallbac
 		
 		for (UserInterface ui : uis)
 		{
-			ui.getGeometry().offset(dx, dy);
+			ui.getGeometry().translate(dx, dy);
 		}
 		
 		UISettings sett = super.setGeometry(g2d);
