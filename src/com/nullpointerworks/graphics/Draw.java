@@ -6,7 +6,7 @@ import com.nullpointerworks.math.geometry.g2d.Rectangle;
 
 public class Draw 
 {
-	/*
+	/**
 	 * 
 	 */
 	public static void geometry(Geometry2D g2d, int c, IntBuffer s)

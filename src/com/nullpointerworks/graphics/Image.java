@@ -8,9 +8,23 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import com.nullpointerworks.core.buffer.IntBuffer;
+import com.nullpointerworks.graphics.image.io.ImageLoader;
+import com.nullpointerworks.graphics.image.io.ImageSaver;
 
 public class Image 
 {
+	/**
+	 * 
+	 * @since 1.0.0
+	 */
+	public static final ImageLoader load = new ImageLoader();
+	
+	/**
+	 * 
+	 * @since 1.0.0
+	 */
+	public static final ImageSaver save = new ImageSaver();
+	
 	/**
 	 * Apply a chroma key to the image. this will make all
 	 * pixels which match the key in the image translucent
