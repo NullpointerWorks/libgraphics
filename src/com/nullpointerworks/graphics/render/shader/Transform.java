@@ -1,6 +1,7 @@
 package com.nullpointerworks.graphics.render.shader;
 
 import com.nullpointerworks.core.buffer.IntBuffer;
+import com.nullpointerworks.graphics.render.PlotBuffer;
 import com.nullpointerworks.graphics.render.PlotRequest;
 import com.nullpointerworks.math.Approximate;
 import com.nullpointerworks.math.matrix.Matrix3;
@@ -12,7 +13,7 @@ public class Transform
 {
 	private Matrix3 M3 = new Matrix3();
 	
-	public void run(PlotRequest req)
+	public PlotBuffer run(PlotRequest req)
 	{
 		/*
 		 * transform source image
@@ -86,10 +87,13 @@ public class Transform
 	    /*
 	     * compile transformation data
 	     */
-		req.mTransform = M3.mul(m_scale, m_rotate, m_trans);
-		req.aabb.x = req.x - 0.5f*rotate_w;
-		req.aabb.y = req.y - 0.5f*rotate_h;
-		req.aabb.w = rotate_w;
-		req.aabb.h = rotate_h;
+		PlotBuffer pb = new PlotBuffer();
+		pb.image = req.image;
+		pb.mTransform = M3.mul(m_scale, m_rotate, m_trans);
+		pb.aabb.x = req.x - 0.5f*rotate_w;
+		pb.aabb.y = req.y - 0.5f*rotate_h;
+		pb.aabb.w = rotate_w;
+		pb.aabb.h = rotate_h;
+		return pb;
 	}
 }

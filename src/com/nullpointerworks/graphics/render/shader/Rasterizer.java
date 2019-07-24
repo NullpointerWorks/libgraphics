@@ -1,13 +1,13 @@
 package com.nullpointerworks.graphics.render.shader;
 
 import com.nullpointerworks.core.buffer.IntBuffer;
-import com.nullpointerworks.graphics.render.PlotRequest;
+import com.nullpointerworks.graphics.render.PlotBuffer;
 import com.nullpointerworks.math.geometry.g2d.Geometry2D;
 import com.nullpointerworks.math.geometry.g2d.Rectangle;
 
 public class Rasterizer
 {
-	public void run(PlotRequest dr, IntBuffer s) 
+	public void run(PlotBuffer dr, IntBuffer s) 
 	{
 		int[] screenPX 		= s.content();
 		int DEST_W 			= s.getWidth();

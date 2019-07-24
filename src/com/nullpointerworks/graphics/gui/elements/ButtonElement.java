@@ -19,7 +19,7 @@ implements UIEnableListener, UIActivityListener, UIHoverListener
 	@Override
 	public void onUpdate(MouseInput mi, float dt) 
 	{
-		if (!enabled) return;
+		if (!isEnabled()) return;
 		
 		float ox=0f, oy=0f;
 		if (getParent() != null) 
@@ -36,6 +36,10 @@ implements UIEnableListener, UIActivityListener, UIHoverListener
 			_presslock.unlock();
 			return;
 		}
+		
+		if (getParent() != null) 
+		if (!getParent().isSelected(this)) return;
+		
 		onHover();
 		
 		if (!_presslock.isLocked())

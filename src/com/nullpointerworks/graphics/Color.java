@@ -1,6 +1,5 @@
 package com.nullpointerworks.graphics;
 
-import com.nullpointerworks.core.buffer.IntBuffer;
 import com.nullpointerworks.math.IntMath;
 import com.nullpointerworks.util.Convert;
 
@@ -35,10 +34,12 @@ public class Color
 		return "a:"+a+" r:"+r+" g:"+g+" b:"+b;
 	}
 	
+	// =========================================================
+	
 	/**
-	 * interpolate between two aRGB colors using a given alpha
+	 * linear interpolate between two ARGB colors using a given lambda
 	 */
-	public static int lerp(int c1, int c2, float alpha)
+	public static int lerp(int c1, int c2, float lambda)
 	{
 		int a = (c1>>24) & 0xFF;
 		int r = (c1>>16) & 0xFF;
@@ -50,18 +51,18 @@ public class Color
 		int g2 = (c2>>8) & 0xFF;
 		int b2 = (c2) 	 & 0xFF;
 		
-		int A = (int)(alpha*256f + 0.5f);
-		a = intLerp256(a, a2, A);
-		r = intLerp256(r, r2, A);
-		g = intLerp256(g, g2, A);
-		b = intLerp256(b, b2, A);
+		int A = (int)(lambda*256f + 0.5f);
+		a = il256(a, a2, A);
+		r = il256(r, r2, A);
+		g = il256(g, g2, A);
+		b = il256(b, b2, A);
 		return toInt(a,r,g,b);
 	}
 
 	/**
-	 * interpolate between two RGB colors using a given alpha
+	 * interpolate between two RGB colors using a given lambda
 	 */
-	public static int lerpRGB(int c1, int c2, float alpha)
+	public static int lerpRGB(int c1, int c2, float lambda)
 	{
 		int r = (c1>>16)& 0xFF;
 		int g = (c1>>8) & 0xFF;
@@ -71,12 +72,57 @@ public class Color
 		int g2 = (c2>>8) & 0xFF;
 		int b2 = (c2) 	 & 0xFF;
 		
-		int A = (int)(alpha*256f + 0.5f);
-		r = intLerp256(r, r2, A);
-		g = intLerp256(g, g2, A);
-		b = intLerp256(b, b2, A);
+		int A = (int)(lambda*256f + 0.5f);
+		r = il256(r, r2, A);
+		g = il256(g, g2, A);
+		b = il256(b, b2, A);
 		return toInt(r,g,b);
 	}
+	
+	/**
+	 * square interpolate between two RGB colors using a given lambda
+	 */
+	public static int slerp(int c1, int c2, float lambda)
+	{
+		int a = (c1>>24) & 0xFF;
+		int r = (c1>>16) & 0xFF;
+		int g = (c1>>8)  & 0xFF;
+		int b = (c1) 	 & 0xFF;
+		
+		int a2 = (c2>>24)& 0xFF;
+		int r2 = (c2>>16)& 0xFF;
+		int g2 = (c2>>8) & 0xFF;
+		int b2 = (c2) 	 & 0xFF;
+		
+		int A = (int)(lambda*256f + 0.5f);
+		a = sil256(a, a2, A);
+		r = sil256(r, r2, A);
+		g = sil256(g, g2, A);
+		b = sil256(b, b2, A);
+		return toInt(a,r,g,b);
+	}
+	
+	/**
+	 * square interpolate between two RGB colors using a given lambda
+	 */
+	public static int slerpRGB(int c1, int c2, float lambda)
+	{
+		int r = (c1>>16)& 0xFF;
+		int g = (c1>>8) & 0xFF;
+		int b = (c1) 	& 0xFF;
+		
+		int r2 = (c2>>16)& 0xFF;
+		int g2 = (c2>>8) & 0xFF;
+		int b2 = (c2) 	 & 0xFF;
+		
+		int A = (int)(lambda*256f + 0.5f);
+		r = sil256(r, r2, A);
+		g = sil256(g, g2, A);
+		b = sil256(b, b2, A);
+		return toInt(r,g,b);
+	}
+	
+	// =========================================================
 	
 	/**
 	 * Percentage based color compilation. aRGB values range from [0,1]
@@ -101,20 +147,20 @@ public class Color
 		return toInt(255, cr, cg, cb);
 	}
 	
-    /**
-     * Pass in RGB values [0,255]. returns the integer value with full alpha
-     */
-	public static int toInt(int r,int g, int b)
-	{
-		return ( (-16777216) | r<<16 | g<<8 | b );
-	}
-	
 	/**
      * Pass in aRGB values [0,255]. returns the integer value
      */
 	public static int toInt(int a, int r,int g,int b)
 	{
 		return ( a<<24 | r<<16 | g<<8 | b );
+	}
+	
+    /**
+     * Pass in RGB values [0,255]. returns the integer value with full alpha
+     */
+	public static int toInt(int r,int g, int b)
+	{
+		return ( (-16777216) | r<<16 | g<<8 | b );
 	}
 	
 	/**
@@ -149,28 +195,23 @@ public class Color
 		return rhex+ghex+bhex;
 	}
 	
-	/**
-	 * replace a color with another color in the given image
-	 */
-	public static void replace(int colorSrc, int colorDest, IntBuffer image)
-	{
-		int[] content = image.content();
-		for (int i=0, l=content.length; i<l; i++)
-		{
-			int c = content[i];
-			if (c==colorSrc)
-				content[i] = colorDest;
-		}
-		image.plot(content);
-	}
-	
 	// ===================================================
 	
 	/*
-	 * lerp two integers
+	 * Integer Lerp - interpolate two integers
 	 */
-	private static int intLerp256(int A, int B, int F)
+	private static int il256(int A, int B, int F)
 	{
 		return (A*(256-F) + B * F) >> 8;
+	}
+	
+	/*
+	 * Square Integer Lerp - square interpolate two integers 
+	 */
+	private static int sil256(int A, int B, int F)
+	{
+		A=A*A; B=B*B;
+		int x = il256(A,B,F);
+		return (int)((Math.sqrt(x)+0.5));
 	}
 }

@@ -10,6 +10,7 @@ import java.io.InputStream;
 import com.nullpointerworks.core.buffer.IntBuffer;
 import com.nullpointerworks.graphics.image.io.ImageLoader;
 import com.nullpointerworks.graphics.image.io.ImageSaver;
+import com.nullpointerworks.math.IntMath;
 
 public class Image 
 {
@@ -24,7 +25,7 @@ public class Image
 	 * @since 1.0.0
 	 */
 	public static final ImageSaver save = new ImageSaver();
-	
+
 	/**
 	 * Apply a chroma key to the image. this will make all
 	 * pixels which match the key in the image translucent
@@ -42,6 +43,38 @@ public class Image
 				px[l] = c;
 			}
 		}
+	}
+	
+	/**
+	 * Apply an opacity over the entire image. Alpha value range [0-255]
+	 */
+	public static void opacity(IntBuffer r, int alpha) 
+	{
+		int l = r.getLength()-1;
+		int[] px = r.content();
+		for (;l>=0;l--)
+		{
+			int c = px[l];
+			int a = (c>>24) & 0xff;
+			a = IntMath.lerp(0, a, alpha, 8);
+			c = c & 0x00FFFFFF;
+			px[l] = c + a;
+		}
+	}
+	
+	/**
+	 * replace a color with another color in the given image
+	 */
+	public static void replace(int colorSrc, int colorDest, IntBuffer image)
+	{
+		int[] content = image.content();
+		for (int i=0, l=content.length; i<l; i++)
+		{
+			int c = content[i];
+			if (c==colorSrc)
+				content[i] = colorDest;
+		}
+		image.plot(content);
 	}
 	
 	/**

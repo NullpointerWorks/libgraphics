@@ -1,6 +1,7 @@
 package com.nullpointerworks.graphics;
 
 import com.nullpointerworks.core.buffer.IntBuffer;
+import com.nullpointerworks.graphics.render.PlotBuffer;
 import com.nullpointerworks.graphics.render.PlotRequest;
 import com.nullpointerworks.graphics.render.shader.Rasterizer;
 import com.nullpointerworks.graphics.render.shader.Transform;
@@ -58,14 +59,16 @@ public class Render
 	
 	public static void release()
 	{
-		transf.run(instance);
-		raster.run(instance, destination);
+		PlotBuffer pb = transf.run(instance);
+		raster.run(pb, destination);
+		pb.free();
 	}
 
 	public static void request(PlotRequest req, IntBuffer dest)
 	{
-		transf.run(req);
-		raster.run(req, dest);
+		PlotBuffer pb = transf.run(req);
+		raster.run(pb, dest);
+		pb.free();
 	}
 	
 	public static void delete()
