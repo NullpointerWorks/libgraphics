@@ -1,3 +1,8 @@
+/*
+ * Creative Commons - Attribution, Share Alike 4.0 
+ * Nullpointer Works (2019)
+ * Use is subject to license terms.
+ */
 package com.nullpointerworks.graphics;
 
 import com.nullpointerworks.math.IntMath;
@@ -41,14 +46,22 @@ public class Color
 	 */
 	public static int lerp(int c1, int c2, float lambda)
 	{
-		int ag1 = c1 & 0xFF00FF00;
-		int ag2 = c2 & 0xFF00FF00;
-		int rb1 = c1 & 0x00FF00FF;
-		int rb2 = c2 & 0x00FF00FF;
-		int F = (int)(lambda*256f + 0.5f);
-		ag1 = il256(ag1, ag2, F);
-		rb1 = il256(rb1, rb2, F);
-	    return (ag1 & 0xFF00FF00) + (rb1 & 0x00FF00FF);
+		int a = (c1>>24)& 0xFF;
+		int r = (c1>>16)& 0xFF;
+		int g = (c1>>8) & 0xFF;
+		int b = (c1) 	& 0xFF;
+
+		int a2 = (c2>>24)& 0xFF;
+		int r2 = (c2>>16)& 0xFF;
+		int g2 = (c2>>8) & 0xFF;
+		int b2 = (c2) 	 & 0xFF;
+		
+		int A = (int)(lambda*256f + 0.5f);
+		a = il256(a, a2, A);
+		r = il256(r, r2, A);
+		g = il256(g, g2, A);
+		b = il256(b, b2, A);
+		return toInt(a,r,g,b);
 	}
 
 	/**

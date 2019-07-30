@@ -1,3 +1,8 @@
+/*
+ * Creative Commons - Attribution, Share Alike 4.0 
+ * Nullpointer Works (2019)
+ * Use is subject to license terms.
+ */
 package com.nullpointerworks.graphics.render.shader;
 
 import com.nullpointerworks.core.buffer.IntBuffer;
@@ -19,6 +24,8 @@ public class Transform
 		 * transform source image
 		 */
 		IntBuffer img 		= req.image;
+		Float x				= req.x;
+		Float y				= req.y;
 		Float scaleW		= req.scale_w;
 		Float scaleH		= req.scale_h;
 		Float rotate 		= req.angle;
@@ -28,8 +35,8 @@ public class Transform
 		/*
 		 * scale image
 		 */
-		float scale_w 	= source_w;
-		float scale_h 	= source_h;
+		float scale_w = source_w;
+		float scale_h = source_h;
 		float inv_scalew = 1f;
 		float inv_scaleh = 1f;
 		if (scaleW != null)
@@ -65,9 +72,9 @@ public class Transform
 		 */
 	    float[][] m_rotate = 
     	{
-    		{cos,-sin, 0.5f*scale_w},
-    		{sin, cos, 0.5f*scale_h},
-    		{0f,0f,1f}
+    		{cos,-sin, scale_w*0.5f-1f},
+    		{sin, cos, scale_h*0.5f-1f},
+    		{ 0f,  0f, 1f}
     	};
 	    
 	    float[][] m_scale = 
@@ -79,21 +86,23 @@ public class Transform
 	    
 	    float[][] m_trans = 
 	    {
-    		{1f,0f,-0.5f*rotate_w},
-    		{0f,1f,-0.5f*rotate_h},
+    		{1f,0f,-x},
+    		{0f,1f,-y},
     		{0f,0f,1f}
 	    };
+	    float[][] tmat = M3.mul(m_scale, m_rotate, m_trans);
 	    
 	    /*
 	     * compile transformation data
 	     */
-		PlotBuffer pb = new PlotBuffer();
-		pb.image = req.image;
-		pb.mTransform = M3.mul(m_scale, m_rotate, m_trans);
-		pb.aabb.x = req.x - 0.5f*rotate_w;
-		pb.aabb.y = req.y - 0.5f*rotate_h;
-		pb.aabb.w = rotate_w;
-		pb.aabb.h = rotate_h;
+		PlotBuffer pb 	= new PlotBuffer();
+		pb.geom 		= req.geom;
+		pb.image 		= img;
+		pb.transform 	= tmat;
+	    pb.aabb.x 		= x - rotate_w*0.5f;
+	    pb.aabb.y 		= y - rotate_h*0.5f;
+		pb.aabb.w 		= rotate_w;
+		pb.aabb.h 		= rotate_h;
 		return pb;
 	}
 }

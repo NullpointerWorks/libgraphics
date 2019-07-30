@@ -1,6 +1,6 @@
 /**
- * @version 1.0.13
- * @author Michiel Drost - nullpointerworks
+ * @version 1.0.0 pre-release
+ * @author Michiel Drost - Nullpointer Works
  */
 module libnpw.graphics
 {

@@ -1,3 +1,8 @@
+/*
+ * Creative Commons - Attribution, Share Alike 4.0 
+ * Nullpointer Works (2019)
+ * Use is subject to license terms.
+ */
 package com.nullpointerworks.graphics.render.shader;
 
 import com.nullpointerworks.core.buffer.IntBuffer;
@@ -5,99 +10,94 @@ import com.nullpointerworks.graphics.render.PlotBuffer;
 import com.nullpointerworks.math.geometry.g2d.Geometry2D;
 import com.nullpointerworks.math.geometry.g2d.Rectangle;
 
+/**
+ * 
+ * @since 1.0.0
+ */
 public class Rasterizer
 {
+	/**
+	 * 
+	 * @since 1.0.0
+	 */
 	public void run(PlotBuffer dr, IntBuffer s) 
 	{
+		Geometry2D geom		= dr.geom;
+		IntBuffer source 	= dr.image;
+		Rectangle aabb 		= dr.aabb;
+		float[][] matrix 	= dr.transform;
+		float a 			= dr.accuracy;
+		
 		int[] screenPX 		= s.content();
 		int DEST_W 			= s.getWidth();
 		int DEST_H 			= s.getHeight();
-		IntBuffer source 	= dr.image;
-		Rectangle aabb 		= dr.aabb;
-		float[][] matrix 	= dr.mTransform;
-		Geometry2D geom		= dr.geom;
 		
+		int[] sourcePX 	= source.content();
 		int SOURCE_W 	= source.getWidth();
 		int SOURCE_H 	= source.getHeight();
-		int tx 			= rnd(aabb.x);
-		int ty 			= rnd(aabb.y);
-		int AABB_W 		= rnd(aabb.w);
-		int AABB_H 		= rnd(aabb.h);
-		int[] sourcePX 	= source.content();
 		
-		float sub_x = aabb.x - (int)aabb.x;
-		float sub_y = aabb.y - (int)aabb.y;
+		float startx 	= aabb.x - 1f;
+		float endx 		= aabb.w + aabb.x;
+		float starty 	= aabb.y - 1f;
+		float endy 		= aabb.h + aabb.y;
+
+		// screen edge clipping
+		startx = (startx < -0.5)?-0.5f: startx;
+		starty = (starty < -0.5)?-0.5f: starty;
+		endx = (endx >= DEST_W)? DEST_W-1: endx;
+		endy = (endy >= DEST_H)? DEST_H-1: endy;
 		
-		// edge clipping
-		AABB_W += (tx+AABB_W > DEST_W)? (DEST_W-(tx+AABB_W)) :0;
-		AABB_H += (ty+AABB_H > DEST_H)? (DEST_H-(ty+AABB_H)) :0;
-		int OFF_X = (tx<0)?(-tx):0;
-		int OFF_Y = (ty<0)?(-ty):0;
-		
-		// loop through the pixels in the AABB
-		for (int j=OFF_Y, k=AABB_H; j<k; j++)
+		for (float j=starty, k=endy; j<k; j+=a)
 		{
-			int stride = tx+(ty+j)*DEST_W;
-			float fy = j+sub_y;
-			
-			for (int i=OFF_X, l=AABB_W; i<l; i++)
-			{
-				float[] v = {i+sub_x, fy};
+			for (float i=startx, l=endx; i<l; i+=a)
+			{				
+				float[] v = {i,j};
 				transform(matrix, v);
 				
-				// check geometry bounds
-				if (!geom.isInside(tx+v[0], ty+v[1])) continue;
-				
-				// check image clipping
-				if (v[0] < 0f) continue;
+				if (v[0] < -0.5f) continue;
 				int x = rnd(v[0]);
 				if (x >= SOURCE_W) continue;
 				
-				if (v[1] < 0f) continue;
+				if (v[1] < -0.5f) continue;
 				int y = rnd(v[1]);
 				if (y >= SOURCE_H) continue;
 				
-				// get image color
-				int indexP = x + y*SOURCE_W;
-				int sourceCol = sourcePX[indexP];
+				if (!geom.isInside(v[0]+startx, v[1]+starty)) continue;
 				
-				// if image pixel is 100% transparent, skip draw
-				int alpha = (sourceCol>>24) & 0xFF;
+				int color = sourcePX[x + y*SOURCE_W];
+				int alpha = (color>>24) & 0xFF;
 				if (alpha == 0) continue;
 				
-				// plot color
-				// only blend when alpha is less than 255
-				// add 1 to 255 alpha value to reach 256
-				int indexS = i + stride;
+				int plotx = rnd(i);
+				int ploty = rnd(j);
+				int STRIDE = plotx + ploty*DEST_W;
+				
 				if (alpha < 255) 
 				{
-					// get background color
-					int screenCol = screenPX[indexS];
-					sourceCol = lerp256(screenCol, sourceCol, alpha+1);
+					int screenCol = screenPX[STRIDE];
+					color = lerp256(screenCol, color, alpha+1);
 				}
-				screenPX[indexS] = sourceCol; // sync plotting
+				screenPX[STRIDE] = color;
 			}
 		}
 	}
-	
-	/*
-	 * JVM optimizes this function
+
+	/**
+	 * 
+	 * @since 1.0.0
 	 */
 	protected final void transform(float[][] m, float[] v)
 	{
-		float vx,vy;
-		float[] mp = m[0];
-		vx = mp[0]*v[0] + mp[1]*v[1] + mp[2];
-		mp = m[1];
-		vy = mp[0]*v[0] + mp[1]*v[1] + mp[2];
-		v[0] = vx;
-		v[1] = vy;
+		float vx,vy; float[] mp = m[0];
+		vx = mp[0]*v[0] + mp[1]*v[1] + mp[2]; mp = m[1];
+		vy = mp[0]*v[0] + mp[1]*v[1] + mp[2]; v[0] = vx; v[1] = vy;
 	}
-	
+
 	/**
-	 * integer interpolation of 32bit colors
+	 * Integer interpolation of ARGB 32-bit colors
+	 * @since 1.0.0
 	 */
-	public int lerp256(int c1, int c2, int lerp) 
+	protected int lerp256(int c1, int c2, int lerp) 
 	{
 		int ag1 = c1 & 0xFF00FF00;
 		int ag2 = c2 & 0xFF00FF00;
@@ -110,7 +110,11 @@ public class Rasterizer
 		rb1 = rb1>>8;
 	    return (ag1 & 0xFF00FF00) + (rb1 & 0x00FF00FF);
 	}
-	
+
+	/**
+	 * 
+	 * @since 1.0.0
+	 */
 	protected final int rnd(float x)
 	{
 		return (int)(x+0.5f);
