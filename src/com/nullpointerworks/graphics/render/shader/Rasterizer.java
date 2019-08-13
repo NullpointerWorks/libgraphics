@@ -36,20 +36,20 @@ public class Rasterizer
 		int SOURCE_W 	= source.getWidth();
 		int SOURCE_H 	= source.getHeight();
 		
-		float startx 	= aabb.x - 1f;
+		float startx 	= aabb.x;
 		float endx 		= aabb.w + aabb.x;
-		float starty 	= aabb.y - 1f;
+		float starty 	= aabb.y;
 		float endy 		= aabb.h + aabb.y;
 
 		// screen edge clipping
-		startx = (startx < -0.5)?-0.5f: startx;
-		starty = (starty < -0.5)?-0.5f: starty;
+		startx = (startx < -0.5f)?-0.5f: startx;
+		starty = (starty < -0.5f)?-0.5f: starty;
 		endx = (endx >= DEST_W)? DEST_W-1: endx;
 		endy = (endy >= DEST_H)? DEST_H-1: endy;
 		
-		for (float j=starty, k=endy; j<k; j+=a)
+		for (float j=starty-1f, k=endy; j<k; j+=a)
 		{
-			for (float i=startx, l=endx; i<l; i+=a)
+			for (float i=startx-1f, l=endx; i<l; i+=a)
 			{				
 				float[] v = {i,j};
 				transform(matrix, v);
