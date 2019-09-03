@@ -179,9 +179,9 @@ public class Color
 		int r=0,g=0,b=0,a=255;
 		if (hex.length() == 6)
 		{
-			r = Convert.parseHex( hex.substring(0, 2) );
-			g = Convert.parseHex( hex.substring(2, 4) );
-			b = Convert.parseHex( hex.substring(4, 6) );
+			r = Convert.parseHexToInt( hex.substring(0, 2) );
+			g = Convert.parseHexToInt( hex.substring(2, 4) );
+			b = Convert.parseHexToInt( hex.substring(4, 6) );
 		}
 		return toInt(a, r, g, b);
 	}

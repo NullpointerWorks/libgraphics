@@ -7,6 +7,7 @@ import com.nullpointerworks.math.IntMath;
 import com.nullpointerworks.util.Log;
 import com.nullpointerworks.util.file.bytefile.ByteFile;
 import com.nullpointerworks.util.file.bytefile.ByteFileParser;
+import com.nullpointerworks.util.file.bytefile.EndOfFileException;
 
 public class FontParser 
 {
@@ -72,18 +73,28 @@ public class FontParser
 		}
 		
 		ByteFile bf = ByteFileParser.file(path);
-		if (bf.isNull() || bf == null)
+		if (bf == null)
 		{
 			Log.err("FontParser: The loaded file returned as null");
 			return null;
 		}
-		return new Font(bf);
+		
+		try 
+		{
+			return new Font(bf);
+		} 
+		catch (EndOfFileException e) 
+		{
+			Log.err("FontParser: File format read error.");
+			return null;
+		}
 	}
 	
 	/**
+	 * @throws IOException 
 	 * 
 	 */
-	public static Font stream(InputStream stream)
+	public static Font stream(InputStream stream) throws IOException
 	{
 		if (stream == null)
 		{
@@ -92,13 +103,21 @@ public class FontParser
 		}
 		
 		ByteFile bf = ByteFileParser.stream(stream);
-		if (bf.isNull() || bf == null)
+		if (bf == null)
 		{
 			Log.err("FontParser: The loaded resource returned as null");
 			return null;
 		}
 		
-		return new Font(bf);
+		try 
+		{
+			return new Font(bf);
+		} 
+		catch (EndOfFileException e) 
+		{
+			Log.err("FontParser: File format read error.");
+			return null;
+		}
 	}
 	
 }

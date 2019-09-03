@@ -7,6 +7,7 @@ import com.nullpointerworks.graphics.Draw;
 import com.nullpointerworks.util.Log;
 import com.nullpointerworks.util.file.bytefile.ByteFile;
 import com.nullpointerworks.util.file.bytefile.ByteFileReader;
+import com.nullpointerworks.util.file.bytefile.EndOfFileException;
 
 public class Font extends IntBuffer
 {
@@ -33,12 +34,13 @@ public class Font extends IntBuffer
 	
 	/**
 	 * 
+	 * @throws EndOfFileException 
 	 */
-	Font(ByteFile bf)
+	Font(ByteFile bf) throws EndOfFileException
 	{
 		this();
 		
-		if (bf.isNull())
+		if (bf==null)
 		{
 			Log.err("NullPointer: The loaded file is null.");
 		}

@@ -15,8 +15,7 @@ import com.nullpointerworks.graphics.gui.input.PassthroughFilter;
 import com.nullpointerworks.graphics.gui.interfaces.UIFocusListener;
 import com.nullpointerworks.graphics.gui.interfaces.UIKeystrokeFilter;
 import com.nullpointerworks.graphics.gui.interfaces.UIKeystrokeListener;
-import com.nullpointerworks.util.pattern.Callback;
-import com.nullpointerworks.util.timing.CallbackTimer;
+import com.nullpointerworks.util.timing.Timer;
 
 public abstract class InputFieldElement extends UIElement 
 implements KeyListener, UIFocusListener
@@ -26,8 +25,9 @@ implements KeyListener, UIFocusListener
 	private UIKeystrokeFilter ksfilter;
 	private List<UIKeystrokeListener> listeners;
 	private List<Byte> char_num; // contains the text
-	private CallbackTimer timed;
-	private Callback timed_call;
+	
+	private Runnable timed_call;
+	private Timer timed;
 	
 	private boolean isVisible = true; // is the text censored or not
 	private List<String> char_str; // the masked text as string
@@ -47,10 +47,10 @@ implements KeyListener, UIFocusListener
 		char_caret 	= "_";
 		caret		= char_caret;
 		
-		timed_call = new Callback()
+		timed_call = new Runnable()
 		{
 			@Override
-			public void onCall(int index) 
+			public void run() 
 			{
 				toggle = !toggle;
 				if (toggle) caret = char_caret;
@@ -58,7 +58,8 @@ implements KeyListener, UIFocusListener
 				onRefresh();
 			}
 		};
-		timed = new CallbackTimer(timed_call,0.333f);
+		
+		timed = new Timer(timed_call, 0.333f);
 	}
 	
 	/**

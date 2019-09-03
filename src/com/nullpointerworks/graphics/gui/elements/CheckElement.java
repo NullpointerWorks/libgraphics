@@ -2,7 +2,7 @@ package com.nullpointerworks.graphics.gui.elements;
 
 import com.nullpointerworks.core.input.Mouse;
 import com.nullpointerworks.core.input.MouseInput;
-import com.nullpointerworks.util.Lock;
+import com.nullpointerworks.util.concurrency.Lock;
 
 public abstract class CheckElement extends ButtonElement 
 {

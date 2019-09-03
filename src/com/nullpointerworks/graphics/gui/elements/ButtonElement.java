@@ -8,7 +8,7 @@ import com.nullpointerworks.graphics.gui.UIElement;
 import com.nullpointerworks.graphics.gui.interfaces.UIActivityListener;
 import com.nullpointerworks.graphics.gui.interfaces.UIEnableListener;
 import com.nullpointerworks.graphics.gui.interfaces.UIHoverListener;
-import com.nullpointerworks.util.Lock;
+import com.nullpointerworks.util.concurrency.Lock;
 
 public abstract class ButtonElement extends UIElement 
 implements UIEnableListener, UIActivityListener, UIHoverListener
