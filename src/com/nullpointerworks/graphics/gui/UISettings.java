@@ -1,6 +1,6 @@
 package com.nullpointerworks.graphics.gui;
 
-import com.nullpointerworks.graphics.Color;
+import com.nullpointerworks.color.Color;
 import com.nullpointerworks.math.geometry.g2d.Geometry2D;
 import com.nullpointerworks.math.geometry.g2d.Point;
 

@@ -1,7 +1,7 @@
 package com.nullpointerworks.graphics.image;
 
 import com.nullpointerworks.core.buffer.IntBuffer;
-import com.nullpointerworks.graphics.Color;
+import com.nullpointerworks.color.Color;
 import com.nullpointerworks.graphics.Image;
 
 public class SpriteSheet extends IntBuffer

@@ -2,7 +2,7 @@ package com.nullpointerworks.graphics.font;
 
 import com.nullpointerworks.core.buffer.FloatBuffer;
 import com.nullpointerworks.core.buffer.IntBuffer;
-import com.nullpointerworks.graphics.Color;
+import com.nullpointerworks.color.Color;
 import com.nullpointerworks.graphics.Draw;
 import com.nullpointerworks.util.Log;
 import com.nullpointerworks.util.file.bytefile.ByteFile;
