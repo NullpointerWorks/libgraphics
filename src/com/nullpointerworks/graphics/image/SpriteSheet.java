@@ -1,12 +1,13 @@
 package com.nullpointerworks.graphics.image;
 
 import com.nullpointerworks.core.buffer.IntBuffer;
-import com.nullpointerworks.color.Color;
+import com.nullpointerworks.color.Colorizer;
 import com.nullpointerworks.graphics.Image;
 
 public class SpriteSheet extends IntBuffer
 {
-	private int chroma = Color.BLACK;
+	private static int BLACK = Colorizer.toInt(0, 0, 0);
+	private int chroma = BLACK;
 	
 	public SpriteSheet(IntBuffer image) 
 	{

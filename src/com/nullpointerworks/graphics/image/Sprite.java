@@ -1,17 +1,20 @@
 package com.nullpointerworks.graphics.image;
 
 import com.nullpointerworks.core.buffer.IntBuffer;
-import com.nullpointerworks.color.Color;
+import com.nullpointerworks.color.Colorizer;
 
 public class Sprite extends IntBuffer
 {
+	private static int WHITE = Colorizer.toInt(255, 255, 255);
+	private static int BLACK = Colorizer.toInt(0, 0, 0);
+	
 	private IntBuffer source;
 	private float x,y,angle;
 	private int chroma;
 	
 	public Sprite(int w, int h) 
 	{
-		this(new IntBuffer(w,h, Color.WHITE));
+		this(new IntBuffer(w,h, WHITE));
 	}
 	
 	public Sprite(IntBuffer image) 
@@ -20,7 +23,7 @@ public class Sprite extends IntBuffer
 		source = image.copy();
 		plot(source.content());
 		angle = x = y = 0;
-		chroma = Color.BLACK;
+		chroma = BLACK;
 	}
 	
 	// ===================================

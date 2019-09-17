@@ -7,7 +7,6 @@ A graphics library with a simple rendering API and various UI and font tools.
 * requires transitive libnpw.math
 * requires transitive libnpw.util
 * exports com.nullpointerworks.graphics
-* exports com.nullpointerworks.graphics.colormodel
 * exports com.nullpointerworks.graphics.font
 * exports com.nullpointerworks.graphics.gui
 * exports com.nullpointerworks.graphics.gui.awt

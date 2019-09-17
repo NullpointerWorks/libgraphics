@@ -1,6 +1,6 @@
 package com.nullpointerworks.graphics.gui;
 
-import com.nullpointerworks.color.Color;
+import com.nullpointerworks.color.Colorizer;
 import com.nullpointerworks.math.geometry.g2d.Geometry2D;
 import com.nullpointerworks.math.geometry.g2d.Point;
 
@@ -15,8 +15,8 @@ public class UISettings
 	
 	private String name 		= "";
 	private String label 		= "";
-	private int fgColor 		= Color.WHITE;
-	private int bgColor 		= Color.BLACK;
+	private int fgColor 		= Colorizer.toInt(255, 255, 255);
+	private int bgColor 		= Colorizer.toInt(0, 0, 0);
 	private int identifier		= 0;
 	private int index			= 0;
 	private Geometry2D geom		= new Point(0f, 0f);
