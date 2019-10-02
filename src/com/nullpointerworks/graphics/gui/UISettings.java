@@ -1,5 +1,6 @@
 package com.nullpointerworks.graphics.gui;
 
+import com.nullpointerworks.color.ColorFormat;
 import com.nullpointerworks.color.Colorizer;
 import com.nullpointerworks.math.geometry.g2d.Geometry2D;
 import com.nullpointerworks.math.geometry.g2d.Point;
@@ -13,10 +14,12 @@ public class UISettings
 	
 	// ========================================
 	
+	private final Colorizer ColorRGB = Colorizer.getColorizer(ColorFormat.RGB);
+	
 	private String name 		= "";
 	private String label 		= "";
-	private int fgColor 		= Colorizer.toInt(255, 255, 255);
-	private int bgColor 		= Colorizer.toInt(0, 0, 0);
+	private int fgColor 		= ColorRGB.toInt(255, 255, 255);
+	private int bgColor 		= ColorRGB.toInt(0, 0, 0);
 	private int identifier		= 0;
 	private int index			= 0;
 	private Geometry2D geom		= new Point(0f, 0f);

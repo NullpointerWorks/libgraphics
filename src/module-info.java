@@ -12,6 +12,7 @@ module libnpw.graphics
 	requires transitive libnpw.math;
 	requires transitive libnpw.util;
 	requires transitive libnpw.color;
+	
 	exports com.nullpointerworks.graphics;
 	exports com.nullpointerworks.graphics.font;
 	exports com.nullpointerworks.graphics.gui;

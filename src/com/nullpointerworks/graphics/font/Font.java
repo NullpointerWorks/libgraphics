@@ -2,6 +2,7 @@ package com.nullpointerworks.graphics.font;
 
 import com.nullpointerworks.core.buffer.FloatBuffer;
 import com.nullpointerworks.core.buffer.IntBuffer;
+import com.nullpointerworks.color.ColorFormat;
 import com.nullpointerworks.color.Colorizer;
 import com.nullpointerworks.graphics.Draw;
 import com.nullpointerworks.util.Log;
@@ -14,9 +15,12 @@ public class Font extends IntBuffer
 	public static final int COLUMN_ROW = 0;
 	public static final int ROW_COLUMN = 1;
 	
+	private final Colorizer ColorRGB = Colorizer.getColorizer(ColorFormat.RGB);
+	private final Colorizer ColorARGB = Colorizer.getColorizer(ColorFormat.ARGB);
+	
 	private FloatBuffer mask = null;
-	private int foregroundColor = Colorizer.toInt(255, 255, 255);
-	private int backgroundColor = Colorizer.toInt(0, 0, 0);
+	private int foregroundColor = ColorRGB.toInt(255, 255, 255);
+	private int backgroundColor = ColorRGB.toInt(0, 0, 0);
 	
 	private int charWidth 	= 0;
 	private int charHeight 	= 0;
@@ -220,7 +224,7 @@ public class Font extends IntBuffer
 		float[] ratios = mask.content();
 		for (int i=0,l=ratios.length; i<l; i++)
 		{
-			int c = Colorizer.argb.lerp(backgroundColor, foregroundColor, ratios[i]);
+			int c = ColorARGB.lerp(backgroundColor, foregroundColor, ratios[i]);
 			this.plot(i, c);
 		}
 		ratios=null;

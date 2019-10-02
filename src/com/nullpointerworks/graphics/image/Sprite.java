@@ -1,12 +1,14 @@
 package com.nullpointerworks.graphics.image;
 
 import com.nullpointerworks.core.buffer.IntBuffer;
+import com.nullpointerworks.color.ColorFormat;
 import com.nullpointerworks.color.Colorizer;
 
 public class Sprite extends IntBuffer
 {
-	private static int WHITE = Colorizer.toInt(255, 255, 255);
-	private static int BLACK = Colorizer.toInt(0, 0, 0);
+	private static final Colorizer ColorRGB = Colorizer.getColorizer(ColorFormat.RGB);
+	private static int WHITE = ColorRGB.toInt(255, 255, 255);
+	private static int BLACK = ColorRGB.toInt(0, 0, 0);
 	
 	private IntBuffer source;
 	private float x,y,angle;

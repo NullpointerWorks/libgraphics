@@ -1,12 +1,13 @@
 package com.nullpointerworks.graphics.image;
 
 import com.nullpointerworks.core.buffer.IntBuffer;
+import com.nullpointerworks.color.ColorFormat;
 import com.nullpointerworks.color.Colorizer;
 import com.nullpointerworks.graphics.Draw;
 
 public class ImageStack extends IntBuffer
-{
-	private static int WHITE = Colorizer.toInt(255, 255, 255);
+{	
+	private final Colorizer ColorRGB = Colorizer.getColorizer(ColorFormat.RGB);
 	private int length = 0;
 	private int width;
 	private int height;
@@ -19,7 +20,8 @@ public class ImageStack extends IntBuffer
 	
 	public ImageStack(int w, int h, int length) 
 	{
-		super(w,h, WHITE );
+		super(w,h);
+		this.clear(ColorRGB.toInt(255, 255, 255));
 		frames = new IntBuffer[length];
 		width = w;
 		height = w;
