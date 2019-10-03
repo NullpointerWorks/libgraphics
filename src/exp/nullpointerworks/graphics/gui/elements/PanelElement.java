@@ -1,10 +1,11 @@
-package com.nullpointerworks.graphics.gui.elements;
+package exp.nullpointerworks.graphics.gui.elements;
 
 import com.nullpointerworks.core.input.MouseInput;
-import com.nullpointerworks.graphics.gui.UIElement;
-import com.nullpointerworks.graphics.gui.UserInterface;
 import com.nullpointerworks.math.geometry.g2d.Rectangle;
 import com.nullpointerworks.util.pattern.Iterator;
+
+import exp.nullpointerworks.graphics.gui.UIElement;
+import exp.nullpointerworks.graphics.gui.UserInterface;
 
 public abstract class PanelElement extends UserInterface
 {

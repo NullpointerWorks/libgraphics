@@ -1,4 +1,4 @@
-package com.nullpointerworks.graphics.gui;
+package exp.nullpointerworks.graphics.gui;
 
 import com.nullpointerworks.color.ColorFormat;
 import com.nullpointerworks.color.Colorizer;

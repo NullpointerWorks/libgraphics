@@ -1,4 +1,4 @@
-package com.nullpointerworks.graphics.gui.interfaces;
+package exp.nullpointerworks.graphics.gui.interfaces;
 
 import com.nullpointerworks.core.buffer.IntBuffer;
 import com.nullpointerworks.core.input.KeyboardInput;

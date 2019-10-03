@@ -1,4 +1,4 @@
-package com.nullpointerworks.graphics.gui.elements;
+package exp.nullpointerworks.graphics.gui.elements;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,8 +6,9 @@ import java.util.List;
 import com.nullpointerworks.core.input.KeyboardInput;
 import com.nullpointerworks.core.input.MouseInput;
 import com.nullpointerworks.graphics.font.Font;
-import com.nullpointerworks.graphics.gui.UIElement;
 import com.nullpointerworks.math.geometry.g2d.Geometry2D;
+
+import exp.nullpointerworks.graphics.gui.UIElement;
 
 public abstract class TextFieldElement extends UIElement 
 {

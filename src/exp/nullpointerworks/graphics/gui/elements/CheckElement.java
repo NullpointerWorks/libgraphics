@@ -1,4 +1,4 @@
-package com.nullpointerworks.graphics.gui.elements;
+package exp.nullpointerworks.graphics.gui.elements;
 
 import com.nullpointerworks.core.input.Mouse;
 import com.nullpointerworks.core.input.MouseInput;

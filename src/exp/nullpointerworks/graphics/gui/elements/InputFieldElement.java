@@ -1,4 +1,4 @@
-package com.nullpointerworks.graphics.gui.elements;
+package exp.nullpointerworks.graphics.gui.elements;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -10,12 +10,13 @@ import com.nullpointerworks.core.input.Key;
 import com.nullpointerworks.core.input.KeyboardInput;
 import com.nullpointerworks.core.input.Mouse;
 import com.nullpointerworks.core.input.MouseInput;
-import com.nullpointerworks.graphics.gui.UIElement;
-import com.nullpointerworks.graphics.gui.input.PassthroughFilter;
-import com.nullpointerworks.graphics.gui.interfaces.UIFocusListener;
-import com.nullpointerworks.graphics.gui.interfaces.UIKeystrokeFilter;
-import com.nullpointerworks.graphics.gui.interfaces.UIKeystrokeListener;
 import com.nullpointerworks.util.timing.Timer;
+
+import exp.nullpointerworks.graphics.gui.UIElement;
+import exp.nullpointerworks.graphics.gui.input.PassthroughFilter;
+import exp.nullpointerworks.graphics.gui.interfaces.UIFocusListener;
+import exp.nullpointerworks.graphics.gui.interfaces.UIKeystrokeFilter;
+import exp.nullpointerworks.graphics.gui.interfaces.UIKeystrokeListener;
 
 public abstract class InputFieldElement extends UIElement 
 implements KeyListener, UIFocusListener

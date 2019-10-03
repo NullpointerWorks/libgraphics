@@ -1,6 +1,6 @@
-package com.nullpointerworks.graphics.gui.input;
+package exp.nullpointerworks.graphics.gui.input;
 
-import com.nullpointerworks.graphics.gui.interfaces.UIKeystrokeFilter;
+import exp.nullpointerworks.graphics.gui.interfaces.UIKeystrokeFilter;
 
 public class PassthroughFilter implements UIKeystrokeFilter
 {

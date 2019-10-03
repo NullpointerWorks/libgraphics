@@ -1,8 +1,9 @@
-package com.nullpointerworks.graphics.gui.elements;
+package exp.nullpointerworks.graphics.gui.elements;
 
 import com.nullpointerworks.core.input.KeyboardInput;
 import com.nullpointerworks.core.input.MouseInput;
-import com.nullpointerworks.graphics.gui.UIElement;
+
+import exp.nullpointerworks.graphics.gui.UIElement;
 
 public abstract class LabelElement extends UIElement 
 {

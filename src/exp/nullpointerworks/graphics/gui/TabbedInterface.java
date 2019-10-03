@@ -6,14 +6,12 @@ import java.util.List;
 import com.nullpointerworks.core.buffer.IntBuffer;
 import com.nullpointerworks.core.input.KeyboardInput;
 import com.nullpointerworks.core.input.MouseInput;
-import com.nullpointerworks.graphics.gui.UIElement;
-import com.nullpointerworks.graphics.gui.UISettings;
-import com.nullpointerworks.graphics.gui.UserInterface;
-import com.nullpointerworks.graphics.gui.elements.ButtonElement;
-import com.nullpointerworks.graphics.gui.interfaces.UICallback;
 import com.nullpointerworks.math.IntMath;
 import com.nullpointerworks.math.geometry.g2d.Geometry2D;
 import com.nullpointerworks.math.geometry.g2d.Rectangle;
+
+import exp.nullpointerworks.graphics.gui.elements.ButtonElement;
+import exp.nullpointerworks.graphics.gui.interfaces.UICallback;
 
 public abstract class TabbedInterface extends UserInterface implements UICallback
 {
