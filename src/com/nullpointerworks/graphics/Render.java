@@ -1,3 +1,8 @@
+/*
+ * Creative Commons - Attribution, Share Alike 4.0 
+ * Nullpointer Works (2019)
+ * Use is subject to license terms.
+ */
 package com.nullpointerworks.graphics;
 
 import com.nullpointerworks.core.buffer.IntBuffer;
@@ -7,6 +12,11 @@ import com.nullpointerworks.graphics.render.shader.Rasterizer;
 import com.nullpointerworks.graphics.render.shader.Transform;
 import com.nullpointerworks.math.geometry.g2d.Geometry2D;
 
+/**
+ * 
+ * 
+ * @author Michiel Drost - Nullpointer Works
+ */
 public class Render 
 {
 	private static Transform transf = new Transform();

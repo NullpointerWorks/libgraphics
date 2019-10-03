@@ -12,6 +12,11 @@ import com.nullpointerworks.graphics.image.io.ImageLoader;
 import com.nullpointerworks.graphics.image.io.ImageSaver;
 import com.nullpointerworks.math.IntMath;
 
+/**
+ * 
+ * @since 1.0.0
+ * @author Michiel Drost - Nullpointer Works
+ */
 public class Image 
 {
 	/**

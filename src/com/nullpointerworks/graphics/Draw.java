@@ -1,13 +1,24 @@
+/*
+ * Creative Commons - Attribution, Share Alike 4.0 
+ * Nullpointer Works (2019)
+ * Use is subject to license terms.
+ */
 package com.nullpointerworks.graphics;
 
 import com.nullpointerworks.core.buffer.IntBuffer;
 import com.nullpointerworks.math.geometry.g2d.Geometry2D;
 import com.nullpointerworks.math.geometry.g2d.Rectangle;
 
+/**
+ * 
+ * @since 1.0.0
+ * @author Michiel Drost - Nullpointer Works
+ */
 public class Draw 
 {
 	/**
 	 * 
+	 * @since 1.0.0
 	 */
 	public static void geometry(Geometry2D g2d, int c, IntBuffer s)
 	{
@@ -28,9 +39,10 @@ public class Draw
 			}
 		}
 	}
-	
+
 	/**
 	 * 
+	 * @since 1.0.0
 	 */
 	public static void image(float px, float py, IntBuffer source, IntBuffer screen)
 	{
@@ -58,6 +70,7 @@ public class Draw
 	
 	/**
 	 * draw ellipse around the center (xc,yc)
+	 * @since 1.0.0
 	 */
 	public static void ellipse(int xc, int yc, int width, int height, int color, IntBuffer srf)
 	{
@@ -113,6 +126,7 @@ public class Draw
 	
 	/**
 	 * Bresenham circle algorithm
+	 * @since 1.0.0
 	 */
 	public static void circle(int cx, int cy, int r, int c, IntBuffer screen)
 	{
@@ -150,6 +164,7 @@ public class Draw
 	
 	/**
 	 * Bresenham line primitive
+	 * @since 1.0.0
 	 */
 	public static void line(int x1,int y1,int x2,int y2, int c, IntBuffer screen)
 	{
@@ -196,8 +211,9 @@ public class Draw
 		}
 	}
 	
-	/*
+	/**
 	 * draw a rectangle to a screen of the given color c
+	 * @since 1.0.0
 	 */
 	public static void rect(int x, int y, int w, int h, 
 					 int c, IntBuffer screen)
@@ -208,8 +224,9 @@ public class Draw
 		line(x,   y+h, x,     y, c, screen);
 	}
 	
-	/*
+	/**
 	 * a triangle
+	 * @since 1.0.0
 	 */
 	public static void triangle(int x1, int y1,
 						 int x2, int y2,

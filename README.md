@@ -1,5 +1,5 @@
 # libgraphics
-A graphics library with a simple rendering API and various UI and font tools. 
+A graphics library with a simple rendering API, image manipulation and various UI and font tools. 
 
 # module
 * requires transitive java.desktop
