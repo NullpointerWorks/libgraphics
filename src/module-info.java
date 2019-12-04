@@ -7,11 +7,10 @@
  */
 module libnpw.graphics
 {
-	requires transitive java.desktop;
 	requires transitive libnpw.core;
 	requires transitive libnpw.math;
-	requires transitive libnpw.util;
-	requires transitive libnpw.color;
+	requires libnpw.util;
+	requires libnpw.color;
 	
 	exports com.nullpointerworks.graphics;
 	exports com.nullpointerworks.graphics.font;

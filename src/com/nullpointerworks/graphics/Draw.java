@@ -39,7 +39,7 @@ public class Draw
 			}
 		}
 	}
-
+	
 	/**
 	 * 
 	 * @since 1.0.0
