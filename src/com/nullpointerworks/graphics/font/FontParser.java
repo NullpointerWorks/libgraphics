@@ -32,16 +32,10 @@ public class FontParser
 		int[] data 		= font.content();
 		
 		ByteFile bf = new ByteFile(null);
-		
-		bf.addByte( (byte) (img_w &0xFF) );
-		bf.addByte( (byte)((img_w>>8) &0xFF) );
-		bf.addByte( (byte) (img_h &0xFF) );
-		bf.addByte( (byte)((img_h>>8) &0xFF) );
-		
-		bf.addByte( (byte) (chr_w &0xFF) );
-		bf.addByte( (byte)((chr_w>>8) &0xFF) );
-		bf.addByte( (byte) (chr_h &0xFF) );
-		bf.addByte( (byte)((chr_h>>8) &0xFF) );
+		bf.addShort(img_w);
+		bf.addShort(img_h);
+		bf.addShort(chr_w);
+		bf.addShort(chr_h);
 		
 		int i,l;
 		
