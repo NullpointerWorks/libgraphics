@@ -7,7 +7,6 @@ package com.nullpointerworks.graphics.render;
 
 import com.nullpointerworks.core.buffer.IntBuffer;
 import com.nullpointerworks.math.geometry.g2d.Geometry2D;
-import com.nullpointerworks.math.geometry.g2d.Rectangle;
 
 /**
  * 
@@ -40,10 +39,28 @@ public class PlotBuffer
 	public float[][] transform;
 	
 	/**
-	 * 
+	 * Most left location of the rendering box used in the {@code Rasterizer} shader.
 	 * @since 1.0.0
 	 */
-	public Rectangle aabb 	= new Rectangle(0f,0f,0f,0f);
+	public float x = 0f;
+	
+	/**
+	 * Most up location of the rendering box used in the {@code Rasterizer} shader.
+	 * @since 1.0.0
+	 */
+	public float y = 0f;
+	
+	/**
+	 * Total width of the rendering box used in the {@code Rasterizer} shader.
+	 * @since 1.0.0
+	 */
+	public float w = 0f;
+	
+	/**
+	 * Total height of the rendering box used in the {@code Rasterizer} shader.
+	 * @since 1.0.0
+	 */
+	public float h = 0f;
 	
 	/**
 	 * 
@@ -52,7 +69,6 @@ public class PlotBuffer
 	public void free() 
 	{
 		image = null;
-		aabb = null;
 		geom = null;
 		transform = null;
 	}

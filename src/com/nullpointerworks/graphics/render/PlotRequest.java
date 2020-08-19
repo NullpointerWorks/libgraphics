@@ -58,7 +58,7 @@ public class PlotRequest
 	public Float scale_h 	= null;
 	
 	/**
-	 * The bounding geometry. Set t to a {@code NullGeometry} object be default.
+	 * The bounding geometry. By default set to a {@code NullGeometry} object.
 	 * @since 1.0.0
 	 * @see NullGeometry
 	 */

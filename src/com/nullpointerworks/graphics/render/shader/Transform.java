@@ -72,8 +72,8 @@ public class Transform
 		 */
 	    float[][] m_rotate = 
     	{
-    		{cos,-sin, scale_w*0.5f-1f},
-    		{sin, cos, scale_h*0.5f-1f},
+    		{cos,-sin, scale_w*0.5f},
+    		{sin, cos, scale_h*0.5f},
     		{ 0f,  0f, 1f}
     	};
 	    
@@ -99,10 +99,10 @@ public class Transform
 		pb.geom 		= req.geom;
 		pb.image 		= img;
 		pb.transform 	= tmat;
-	    pb.aabb.x 		= x - rotate_w*0.5f;
-	    pb.aabb.y 		= y - rotate_h*0.5f;
-		pb.aabb.w 		= rotate_w;
-		pb.aabb.h 		= rotate_h;
+	    pb.x 		= x - rotate_w*0.5f;
+	    pb.y 		= y - rotate_h*0.5f;
+		pb.w 		= rotate_w;
+		pb.h 		= rotate_h;
 		return pb;
 	}
 }

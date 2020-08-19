@@ -8,7 +8,6 @@ package com.nullpointerworks.graphics.render.shader;
 import com.nullpointerworks.core.buffer.IntBuffer;
 import com.nullpointerworks.graphics.render.PlotBuffer;
 import com.nullpointerworks.math.geometry.g2d.Geometry2D;
-import com.nullpointerworks.math.geometry.g2d.Rectangle;
 
 /**
  * 
@@ -24,7 +23,6 @@ public class Rasterizer
 	{
 		Geometry2D geom		= dr.geom;
 		IntBuffer source 	= dr.image;
-		Rectangle aabb 		= dr.aabb;
 		float[][] matrix 	= dr.transform;
 		float a 			= dr.accuracy;
 		
@@ -36,14 +34,14 @@ public class Rasterizer
 		int SOURCE_W 	= source.getWidth();
 		int SOURCE_H 	= source.getHeight();
 		
-		float startx 	= aabb.x;
-		float endx 		= aabb.w + aabb.x;
-		float starty 	= aabb.y;
-		float endy 		= aabb.h + aabb.y;
+		float startx 	= dr.x;
+		float endx 		= dr.w + dr.x;
+		float starty 	= dr.y;
+		float endy 		= dr.h + dr.y;
 
 		// screen edge clipping
-		startx = (startx < -0.5f)?-0.5f: startx;
-		starty = (starty < -0.5f)?-0.5f: starty;
+		startx = (startx < 0f)?0f: startx;
+		starty = (starty < 0f)?0f: starty;
 		endx = (endx >= DEST_W)? DEST_W-1: endx;
 		endy = (endy >= DEST_H)? DEST_H-1: endy;
 		
@@ -54,12 +52,12 @@ public class Rasterizer
 				float[] v = {i,j};
 				transform(matrix, v);
 				
-				if (v[0] < -0.5f) continue;
-				int x = rnd(v[0]);
+				if (v[0] < 0f) continue;
+				int x = (int)(v[0]);
 				if (x >= SOURCE_W) continue;
 				
-				if (v[1] < -0.5f) continue;
-				int y = rnd(v[1]);
+				if (v[1] < 0f) continue;
+				int y = (int)(v[1]);
 				if (y >= SOURCE_H) continue;
 				
 				if (!geom.isInside(v[0]+startx, v[1]+starty)) continue;
@@ -68,8 +66,8 @@ public class Rasterizer
 				int alpha = (color>>24) & 0xFF;
 				if (alpha == 0) continue;
 				
-				int plotx = rnd(i);
-				int ploty = rnd(j);
+				int plotx = (int)(i);
+				int ploty = (int)(j);
 				int STRIDE = plotx + ploty*DEST_W;
 				
 				if (alpha < 255) 
@@ -109,14 +107,5 @@ public class Rasterizer
 		ag1 = ag1>>8;
 		rb1 = rb1>>8;
 	    return (ag1 & 0xFF00FF00) + (rb1 & 0x00FF00FF);
-	}
-
-	/**
-	 * 
-	 * @since 1.0.0
-	 */
-	protected final int rnd(float x)
-	{
-		return (int)(x+0.5f);
 	}
 }
