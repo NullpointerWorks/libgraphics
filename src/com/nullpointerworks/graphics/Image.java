@@ -6,6 +6,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import javax.imageio.ImageIO;
 
 import com.nullpointerworks.core.buffer.IntBuffer;
 import com.nullpointerworks.graphics.image.io.ImageLoader;
@@ -30,10 +31,11 @@ public class Image
 	 * @since 1.0.0
 	 */
 	public static final ImageSaver save = new ImageSaver();
-
+	
 	/**
 	 * Apply a chroma key to the image. this will make all
 	 * pixels which match the key in the image translucent
+	 * @since 1.0.0
 	 */
 	public static void chroma(IntBuffer r, int key) 
 	{
@@ -52,6 +54,7 @@ public class Image
 	
 	/**
 	 * Apply an opacity over the entire image. Alpha value range [0-255]
+	 * @since 1.0.0
 	 */
 	public static void opacity(IntBuffer r, int alpha) 
 	{
@@ -69,6 +72,7 @@ public class Image
 	
 	/**
 	 * replace a color with another color in the given image
+	 * @since 1.0.0
 	 */
 	public static void replace(int colorSrc, int colorDest, IntBuffer image)
 	{
@@ -84,6 +88,7 @@ public class Image
 	
 	/**
 	 * Extend the size of the given image with the given margin
+	 * @since 1.0.0
 	 */
 	public static IntBuffer margin(IntBuffer image, int marginW, int marginH, int bgColor)
 	{
@@ -98,6 +103,7 @@ public class Image
 	
 	/**
 	 * Flip the given image either horizontally or vertically. This will replace the given image
+	 * @since 1.0.0
 	 */
 	public static void flip(IntBuffer image, boolean horizontal)
 	{
@@ -123,6 +129,7 @@ public class Image
 	
 	/**
 	 * Returns an IntBuffer object that is an extraction of the given image.
+	 * @since 1.0.0
 	 */
 	public static IntBuffer extract(int x, int y, int w, int h, IntBuffer pic) 
 	{
@@ -137,21 +144,22 @@ public class Image
 	}
 	
 	/**
-	 * Returns a Core IntBuffer object filled with the content from the given AWT BufferedImage
+	 * Returns an {@code IntBuffer} object filled with the content from the given {@code BufferedImage} object.
+	 * @since 1.0.0
 	 */
 	public static IntBuffer fromBufferedImage(BufferedImage bi)
 	{
 		int w = bi.getWidth();
 		int h = bi.getHeight();
 		IntBuffer ib = new IntBuffer(w,h);
-		int[] px = ((DataBufferInt)bi.getRaster().getDataBuffer()).getData();
-		int[] sc = ib.content();
-		for (int l = w*h - 1; l>=0; l--) sc[l] = px[l];
+		int[] px = getContent(bi);
+		ib.plot(px);
 		return ib;
 	}
 	
 	/**
-	 * Returns a AWT BufferedImage object from the given Core IntBuffer object
+	 * Returns a {@code BufferedImage} object from the given {@code IntBuffer} object.
+	 * @since 1.0.0
 	 */
 	public static BufferedImage toBufferedImage(IntBuffer ib)
 	{
@@ -165,7 +173,8 @@ public class Image
 	}
 	
 	/**
-	 * Returns a java.io.InputStream object from the given Core IntBuffer object in PNG format
+	 * Returns a {@code java.io.InputStream} object from the given IntBuffer object in PNG format.
+	 * @since 1.0.0
 	 */
 	public static InputStream toInputStream(IntBuffer ib)
 	{
@@ -173,7 +182,7 @@ public class Image
 		ByteArrayOutputStream os = new ByteArrayOutputStream();
         try 
         {
-			javax.imageio.ImageIO.write(bi, "png", os);
+			ImageIO.write(bi, "png", os);
 		} 
         catch (IOException e) 
         {
@@ -183,7 +192,8 @@ public class Image
 	}
 	
 	/**
-	 * Returns the integer array content form the given AWT BufferedImage
+	 * Returns the integer array content form the provided {@code BufferedImage} object.
+	 * @since 1.0.0
 	 */
 	public static int[] getContent(BufferedImage bi)
 	{
