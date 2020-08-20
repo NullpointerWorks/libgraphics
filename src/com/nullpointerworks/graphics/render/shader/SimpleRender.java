@@ -46,9 +46,9 @@ public class SimpleRender
 		endx = (endx >= DEST_W)? DEST_W-1: endx;
 		endy = (endy >= DEST_H)? DEST_H-1: endy;
 		
-		for (float j=starty-1f, k=endy; j<k; j+=accuracy)
+		for (float j=starty; j<endy; j+=accuracy)
 		{
-			for (float i=startx-1f, l=endx; i<l; i+=accuracy)
+			for (float i=startx; i<endx; i+=accuracy)
 			{				
 				float[] v = {i,j};
 				transform(matrix, v);

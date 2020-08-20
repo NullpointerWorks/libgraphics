@@ -79,8 +79,8 @@ public class Transform
 		 */
 	    float[][] m_rotate = 
     	{
-    		{cos,-sin, scale_w*0.5f-1f},
-    		{sin, cos, scale_h*0.5f-1f},
+    		{cos,-sin, scale_w*0.5f},
+    		{sin, cos, scale_h*0.5f},
     		{ 0f,  0f, 1f}
     	};
 	    float[][] m_scale = 

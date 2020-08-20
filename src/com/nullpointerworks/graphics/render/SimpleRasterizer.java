@@ -17,8 +17,19 @@ public class SimpleRasterizer implements Rasterizer
 {
 	private Transform tr;
 	private SimpleRender sr;
-	
 	private float x,y,sw,sh,a,acc;
+	
+	public SimpleRasterizer()
+	{
+		tr = new Transform();
+		sr = new SimpleRender();
+		acc = 0.495f;
+		x = 0f;
+		y = 0f;
+		sw = 1f;
+		sh = 1f;
+		a = 0f;
+	}
 	
 	@Override
 	public void translate(float x, float y)
@@ -42,6 +53,8 @@ public class SimpleRasterizer implements Rasterizer
 	
 	public void accuracy(float acc)
 	{
+		if (acc < 0.0001f) acc = 0.0001f;
+		if (acc > 1f) acc = 1f;
 		this.acc=acc;
 	}
 	
