@@ -18,10 +18,4 @@ module libnpw.graphics
 	exports com.nullpointerworks.graphics.image.io;
 	exports com.nullpointerworks.graphics.render;
 	exports com.nullpointerworks.graphics.render.shader;
-	
-	exports exp.nullpointerworks.graphics.gui;
-	exports exp.nullpointerworks.graphics.gui.awt;
-	exports exp.nullpointerworks.graphics.gui.elements;
-	exports exp.nullpointerworks.graphics.gui.input;
-	exports exp.nullpointerworks.graphics.gui.interfaces;
 }
