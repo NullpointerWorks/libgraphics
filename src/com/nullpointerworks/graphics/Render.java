@@ -21,7 +21,7 @@ public class Render
 {
 	/**
 	 * 
-	 * @return
+	 * @return q - 
 	 * @since 1.0.0
 	 */
 	public static Rasterizer getRasterizer(RenderQuality q)

@@ -46,6 +46,7 @@ public class RenderAreaMap implements IRenderShader
 				transform(matrix, v);
 				if (signum(v[0])) continue;
 				if (signum(v[1])) continue;
+				
 				int x = (int)(v[0]);
 				if (x >= SOURCE_W) continue;
 				int y = (int)(v[1]);
@@ -66,24 +67,16 @@ public class RenderAreaMap implements IRenderShader
 	            /*
 	             * get the 4 pixel colors that overlap the destination pixel
 	             */
-	            if (y > 0)
-				if (y < SOURCE_H)
-				{
-		            if (x > 0)
-					if (x < SOURCE_W)
-						UL = sourcePX[x + y*SOURCE_W];
-		            
-		            if (x+1 > 0)
-					if (x+1 < SOURCE_W)
-						UR = sourcePX[x + 1 + y*SOURCE_W];
-				}
+				
+				UL = sourcePX[x + y*SOURCE_W];
+	            if (x+1 > 0)
+				if (x+1 < SOURCE_W)
+					UR = sourcePX[x + 1 + y*SOURCE_W];
 	            
 				if (y+1 > 0)
 				if (y+1 < SOURCE_H) 
 				{
-		            if (x > 0)
-					if (x < SOURCE_W)
-						LL = sourcePX[x + (y+1)*SOURCE_W];
+					LL = sourcePX[x + (y+1)*SOURCE_W];
 		            
 		            if (x+1 > 0)
 					if (x+1 < SOURCE_W)
@@ -94,24 +87,24 @@ public class RenderAreaMap implements IRenderShader
 	             * interpolate colors
 	             * make sure the lerp values are within bounds
 	             */
-	            int subX = (int)(16f * (v[0]-i));
-	            int subY = (int)(16f * (v[1]-j));
-	            subX = clamp(0,subX,16);
-	            subY = clamp(0,subY,16);
+	            int subX = (int)(256f * (v[0]-x));
+	            int subY = (int)(256f * (v[1]-y));
+	            subX = clamp(0,subX,256);
+	            subY = clamp(0,subY,256);
 	            
 	            /*
 	             * blend the area mapping
 	             */
-	            int colU = intLerpARGB(UL,UR, subX);
-	            int colL = intLerpARGB(LL,LR, subX);
-                int color = intLerpARGB(colU, colL, subY);
+	            int colU = lerp256(UL,UR, subX);
+	            int colL = lerp256(LL,LR, subX);
+                int color = lerp256(colU, colL, subY);
 				
                 /*
                  * blend transparency with destination surface
                  */
-				//int alpha = (color>>24) & 0xFF;
-				//if (alpha == 0) continue;
-				//if (alpha < 255) color = lerp256(screenCol, color, alpha+1);
+				int alpha = (color>>24) & 0xFF;
+				if (alpha == 0) continue;
+				if (alpha < 255) color = lerp256(screenCol, color, alpha+1);
 				
 				screenPX[STRIDE] = color;
 			}
@@ -142,44 +135,29 @@ public class RenderAreaMap implements IRenderShader
 		vy = mp[0]*v[0] + mp[1]*v[1] + mp[2]; v[0] = vx; v[1] = vy;
 	}
 	
-	public int intLerpARGB(int c1, int c2, int lerp)
+	private int lerp256(int c1, int c2, int lerp)
 	{
+		int a = (c1>>24)& 0xFF;
 		int r = (c1>>16)& 0xFF;
 		int g = (c1>>8) & 0xFF;
 		int b = (c1) 	& 0xFF;
-		
+
+		int a2 = (c2>>24)& 0xFF;
 		int r2 = (c2>>16)& 0xFF;
 		int g2 = (c2>>8) & 0xFF;
 		int b2 = (c2) 	 & 0xFF;
 		
-		r = intLerp16(r, r2, lerp);
-		g = intLerp16(g, g2, lerp);
-		b = intLerp16(b, b2, lerp);
+		int l = (256-lerp);
+		a = (a*l + a2*lerp) >> 8;
+		r = (r*l + r2*lerp) >> 8;
+		g = (g*l + g2*lerp) >> 8;
+		b = (b*l + b2*lerp) >> 8;
 		
-		return toInt(r,g,b);
+		return toInt(a,r,g,b);
 	}
 	
-	private final int lerp256(int c1, int c2, int lerp) 
+	private int toInt(int a,int r,int g,int b)
 	{
-		int ag1 = c1 & 0xFF00FF00;
-		int ag2 = c2 & 0xFF00FF00;
-		int rb1 = c1 & 0x00FF00FF;
-		int rb2 = c2 & 0x00FF00FF;
-		int l 	= (256-lerp);
-		ag1 = ag1*l + ag2*lerp;
-		rb1 = rb1*l + rb2*lerp;
-		ag1 = ag1>>8;
-		rb1 = rb1>>8;
-	    return (ag1 & 0xFF00FF00) + (rb1 & 0x00FF00FF);
-	}
-	
-	public int intLerp16(int A, int B, int F)
-	{
-		return (A*(16-F) + B*F) >> 4;
-	}
-	
-	public int toInt(int r,int g,int b)
-	{
-		return ( (255<<24) | r<<16 | g<<8 | b );
+		return ( (a<<24) | r<<16 | g<<8 | b );
 	}
 }
