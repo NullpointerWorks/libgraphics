@@ -6,24 +6,17 @@
 package com.nullpointerworks.graphics.render.shader;
 
 import com.nullpointerworks.core.buffer.IntBuffer;
-import com.nullpointerworks.graphics.render.PlotTransform;
+import com.nullpointerworks.graphics.render.RenderTransform;
 
 /**
  * 
  * @since 1.0.0
  * @author Michiel Drost - Nullpointer Works
  */
-public class SimpleRender
+public class RenderSampling implements IRenderShader
 {
-	/**
-	 * 
-	 * @param accuracy
-	 * @param dr
-	 * @param img
-	 * @param s
-	 * @since 1.0.0
-	 */
-	public void plot(float accuracy, PlotTransform dr, IntBuffer img, IntBuffer s)
+	@Override
+	public void plot(float a, RenderTransform dr, IntBuffer img, IntBuffer s)
 	{
 		float[][] matrix 	= dr.transform;
 		
@@ -46,9 +39,9 @@ public class SimpleRender
 		endx = (endx >= DEST_W)? DEST_W-1: endx;
 		endy = (endy >= DEST_H)? DEST_H-1: endy;
 		
-		for (float j=starty; j<endy; j+=accuracy)
+		for (float j=starty; j<endy; j+=a)
 		{
-			for (float i=startx; i<endx; i+=accuracy)
+			for (float i=startx; i<endx; i+=a)
 			{				
 				float[] v = {i,j};
 				transform(matrix, v);

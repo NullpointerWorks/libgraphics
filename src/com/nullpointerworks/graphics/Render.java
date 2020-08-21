@@ -8,7 +8,9 @@
 package com.nullpointerworks.graphics;
 
 import com.nullpointerworks.graphics.render.Rasterizer;
-import com.nullpointerworks.graphics.render.SimpleRasterizer;
+import com.nullpointerworks.graphics.render.shader.RenderSampling;
+import com.nullpointerworks.graphics.render.shader.RenderAreaMap;
+import com.nullpointerworks.graphics.render.shader.Transform;
 
 /**
  * 
@@ -22,9 +24,17 @@ public class Render
 	 * @return
 	 * @since 1.0.0
 	 */
-	public static Rasterizer getRasterizer()
+	public static Rasterizer getRasterizer(RenderQuality q)
 	{
-		return new SimpleRasterizer();
+		switch(q)
+		{
+		default:
+		case SAMPLING:
+			return new Rasterizer(new Transform(), new RenderSampling() );
+			
+		case AREA_MAP:
+			return new Rasterizer(new Transform(), new RenderAreaMap() );
+		}
 	}
 	
 	

@@ -9,29 +9,19 @@ import com.nullpointerworks.core.buffer.IntBuffer;
 import com.nullpointerworks.math.Approximate;
 import com.nullpointerworks.math.matrix.Matrix3;
 
-import com.nullpointerworks.graphics.render.PlotTransform;
+import com.nullpointerworks.graphics.render.RenderTransform;
 
 /**
  * applies translations, rotations, scaling, etc to the given request
  * @since 1.0.0
  * @author Michiel Drost - Nullpointer Works
  */
-public class Transform
+public class Transform implements ITransform
 {
 	private final Matrix3 M3 = new Matrix3();
 	
-	/**
-	 * 
-	 * @param x
-	 * @param y
-	 * @param sw
-	 * @param sh
-	 * @param a
-	 * @param img
-	 * @return
-	 * @since 1.0.0
-	 */
-	public PlotTransform run(float x,float y,float sw,float sh,float a,IntBuffer img)
+	@Override
+	public RenderTransform transform(float x,float y,float sw,float sh,float a,IntBuffer img)
 	{
 		/*
 		 * image dimensions
@@ -100,7 +90,7 @@ public class Transform
 	    /*
 	     * compile transformation data
 	     */
-		var pb = new PlotTransform();
+		var pb = new RenderTransform();
 		pb.transform = tmat;
 	    pb.x = x - rotate_w*0.5f;
 	    pb.y = y - rotate_h*0.5f;

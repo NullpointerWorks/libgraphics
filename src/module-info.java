@@ -17,4 +17,5 @@ module libnpw.graphics
 	exports com.nullpointerworks.graphics.image;
 	exports com.nullpointerworks.graphics.image.io;
 	exports com.nullpointerworks.graphics.render;
+	exports com.nullpointerworks.graphics.render.shader;
 }

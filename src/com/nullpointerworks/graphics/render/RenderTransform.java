@@ -10,8 +10,17 @@ package com.nullpointerworks.graphics.render;
  * @since 1.0.0
  * @author Michiel Drost - Nullpointer Works
  */
-public class PlotTransform 
+public class RenderTransform 
 {
+	/**
+	 * 
+	 * @since 1.0.0
+	 */
 	public float[][] transform;
+	
+	/**
+	 * 
+	 * @since 1.0.0
+	 */
 	public float x,y,w,h;
 }
