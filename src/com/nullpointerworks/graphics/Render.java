@@ -24,7 +24,7 @@ public class Render
 	 * @return q - 
 	 * @since 1.0.0
 	 */
-	public static Rasterizer getRasterizer(RenderQuality q)
+	public static Rasterizer getRasterizer(RenderMethod q)
 	{
 		switch(q)
 		{
@@ -36,6 +36,4 @@ public class Render
 			return new Rasterizer(new Transform(), new RenderAreaMap() );
 		}
 	}
-	
-	
 }

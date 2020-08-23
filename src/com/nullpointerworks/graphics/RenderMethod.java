@@ -1,6 +1,6 @@
 package com.nullpointerworks.graphics;
 
-public enum RenderQuality 
+public enum RenderMethod 
 {
 	/**
 	 * Rotation by image sampling. Low quality rendering.
