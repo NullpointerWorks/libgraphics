@@ -8,7 +8,7 @@
 package com.nullpointerworks.graphics.render.shader;
 
 import com.nullpointerworks.core.buffer.IntBuffer;
-import com.nullpointerworks.graphics.render.RenderTransform;
+import com.nullpointerworks.graphics.render.ITransformation;
 
 /**
  * 
@@ -25,5 +25,5 @@ public interface IRenderShader
 	 * @param s
 	 * @since 1.0.0
 	 */
-	void plot(float a, RenderTransform dr, IntBuffer img, IntBuffer s);
+	void plot(float a, ITransformation dr, IntBuffer img, IntBuffer s);
 }

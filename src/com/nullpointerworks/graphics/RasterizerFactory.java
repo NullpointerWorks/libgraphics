@@ -7,24 +7,25 @@
  */
 package com.nullpointerworks.graphics;
 
+import com.nullpointerworks.graphics.render.IRasterizer;
 import com.nullpointerworks.graphics.render.Rasterizer;
 import com.nullpointerworks.graphics.render.shader.RenderSampling;
 import com.nullpointerworks.graphics.render.shader.RenderAreaMap;
 import com.nullpointerworks.graphics.render.shader.Transform;
 
 /**
- * 
+ * Simple factory for creating rasterizers.
  * @since 1.0.0
  * @author Michiel Drost - Nullpointer Works
  */
-public class Render 
+public class RasterizerFactory 
 {
 	/**
 	 * 
 	 * @return q - 
 	 * @since 1.0.0
 	 */
-	public static Rasterizer getRasterizer(RenderMethod q)
+	public IRasterizer getRasterizer(RenderMethod q)
 	{
 		switch(q)
 		{

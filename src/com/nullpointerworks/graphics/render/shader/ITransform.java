@@ -8,7 +8,7 @@
 package com.nullpointerworks.graphics.render.shader;
 
 import com.nullpointerworks.core.buffer.IntBuffer;
-import com.nullpointerworks.graphics.render.RenderTransform;
+import com.nullpointerworks.graphics.render.ITransformation;
 
 public interface ITransform 
 {
@@ -23,5 +23,5 @@ public interface ITransform
 	 * @return
 	 * @since 1.0.0
 	 */
-	RenderTransform transform(float x, float y, float sw, float sh, float a, IntBuffer img);
+	ITransformation transform(float x, float y, float sw, float sh, float a, IntBuffer img);
 }

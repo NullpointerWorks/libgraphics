@@ -8,7 +8,7 @@
 package com.nullpointerworks.graphics.render.shader;
 
 import com.nullpointerworks.core.buffer.IntBuffer;
-import com.nullpointerworks.graphics.render.RenderTransform;
+import com.nullpointerworks.graphics.render.ITransformation;
 
 /**
  * 
@@ -18,8 +18,10 @@ import com.nullpointerworks.graphics.render.RenderTransform;
 public class RenderAreaMap implements IRenderShader
 {
 	@Override
-	public void plot(float a, RenderTransform dr, IntBuffer img, IntBuffer s)
+	public void plot(float a, ITransformation dr, IntBuffer img, IntBuffer s)
 	{
+		TransformData rt = (TransformData)dr;
+		
 		int[] screenPX 		= s.content();
 		int DEST_W 			= s.getWidth();
 		int DEST_H 			= s.getHeight();
@@ -27,12 +29,12 @@ public class RenderAreaMap implements IRenderShader
 		int[] sourcePX 	= img.content();
 		int SOURCE_W 	= img.getWidth();
 		int SOURCE_H 	= img.getHeight();
-
-		float[][] matrix 	= dr.transform;
-		float startx 	= dr.x;
-		float endx 		= dr.w + dr.x;
-		float starty 	= dr.y;
-		float endy 		= dr.h + dr.y;
+		
+		float[][] matrix 	= rt.transform;
+		float startx 	= rt.x;
+		float endx 		= rt.w + rt.x;
+		float starty 	= rt.y;
+		float endy 		= rt.h + rt.y;
 		
 		// screen edge clipping
 		startx = (startx < 0f)?0f: startx;

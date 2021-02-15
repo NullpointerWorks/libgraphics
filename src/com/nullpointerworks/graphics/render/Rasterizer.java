@@ -15,7 +15,7 @@ import com.nullpointerworks.graphics.render.shader.ITransform;
  * @since 1.0.0
  * @author Michiel Drost - Nullpointer Works
  */
-public class Rasterizer
+public class Rasterizer implements IRasterizer
 {
 	private ITransform tr;
 	private IRenderShader rs;
@@ -39,45 +39,27 @@ public class Rasterizer
 		a = 0f;
 	}
 	
-	/**
-	 * 
-	 * @param x
-	 * @param y
-	 * @since 1.0.0
-	 */
+	@Override
 	public void translate(float x, float y)
 	{
 		this.x=x;
 		this.y=y;
 	}
 	
-	/**
-	 * 
-	 * @param a
-	 * @since 1.0.0
-	 */
+	@Override
 	public void rotate(float a)
 	{
 		this.a=a;
 	}
 	
-	/**
-	 * 
-	 * @param sw
-	 * @param sh
-	 * @since 1.0.0
-	 */
+	@Override
 	public void scale(float sw, float sh)
 	{
 		this.sw=sw;
 		this.sh=sh;
 	}
 	
-	/**
-	 * 
-	 * @param acc
-	 * @since 1.0.0
-	 */
+	@Override
 	public void accuracy(float acc)
 	{
 		if (acc < 0.0001f) acc = 0.0001f;
@@ -85,12 +67,7 @@ public class Rasterizer
 		this.acc=acc;
 	}
 	
-	/**
-	 * 
-	 * @param image
-	 * @param surface
-	 * @since 1.0.0
-	 */
+	@Override
 	public void plot(IntBuffer image, IntBuffer surface)
 	{
 		var ptr = tr.transform(x, y, sw, sh, a, image);

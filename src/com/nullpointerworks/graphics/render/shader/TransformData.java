@@ -5,14 +5,16 @@
  * 
  * https://creativecommons.org/licenses/by-sa/4.0/
  */
-package com.nullpointerworks.graphics.render;
+package com.nullpointerworks.graphics.render.shader;
+
+import com.nullpointerworks.graphics.render.ITransformation;
 
 /**
  * 
  * @since 1.0.0
  * @author Michiel Drost - Nullpointer Works
  */
-public class RenderTransform 
+class TransformData implements ITransformation
 {
 	/**
 	 * 
