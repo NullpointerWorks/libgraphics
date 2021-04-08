@@ -1,9 +1,7 @@
 /*
- * Creative Commons - Attribution, Share Alike 4.0 
+ * This is free and unencumbered software released into the public domain.
+ * (http://unlicense.org/)
  * Nullpointer Works (2021)
- * Using this library makes you subject to the license terms.
- * 
- * https://creativecommons.org/licenses/by-sa/4.0/
  */
 package com.nullpointerworks.graphics.render.shader;
 
