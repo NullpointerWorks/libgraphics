@@ -1,5 +1,3 @@
-<a target="_blank" href="https://unlicense.org"><img src="https://unlicense.org/pd-icon.png" alt="Unlicense" width="40"/> Unlicense</a>
-
 # libgraphics
 A graphics library with a simple rendering API and image manipulation.
 
